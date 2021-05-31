@@ -11,6 +11,7 @@ const Score = (props) => {
   const answers = useSelector((state) => state.quiz.answers);
 
   // 정답만 걸러내기
+  // answers 내에는 true, false 가 공존하지만 filter를 다음과 같이 사용함으로써 true만 반환 됨
   let correct = answers.filter((answer) => {
     return answer;
   });
@@ -25,7 +26,7 @@ const Score = (props) => {
   Object.keys(score_texts).map((s, idx) => {
     // 첫번째 텍스트 넣어주기
     if (idx === 0) {
-      score_text = score_texts[s];
+      score_text = score_texts[s]; // = score_texts.60
     }
     // 실제 점수와 기준 점수(키로 넣었던 점수) 비교해서 텍스트를 넣자!
     score_text = parseInt(s) <= score ? score_texts[s] : score_text;
