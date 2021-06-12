@@ -21,12 +21,6 @@ const initialState = {
     { question: "르탄이는 3살이다.", answer: "O" },
     { question: "르탄이는 4살이다.", answer: "O" },
     { question: "르탄이는 5살이다.", answer: "O" },
-    // { question: "르탄이는 6살이다.", answer: "O" },
-    // { question: "르탄이는 7살이다.", answer: "O" },
-    // { question: "르탄이는 8살이다.", answer: "O" },
-    // { question: "르탄이는 9살이다.", answer: "O" },
-    // { question: "르탄이는 10살이다.", answer: "O" },
-    // { question: "르탄이는 11살이다.", answer: "O" },
   ],
 };
 
@@ -46,7 +40,6 @@ export const resetAnswer = () => {
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    // do reducer stuff
     case "quiz/GET_QUIZ": {
       return { ...state, quiz: action.quiz_list };
     }

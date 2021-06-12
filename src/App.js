@@ -1,27 +1,25 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
-import { Route, Switch } from "react-router-dom";
 
 import Start from "./Start";
 import Quiz from "./Quiz";
 import Score from "./Score";
-import Message from "./Message";
 import Ranking from "./Ranking";
-
+import Message from "./Message";
+import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
-// 리덕스 스토어와 연결하기 위해 connect라는 친구를 호출할게요!
+import NotFound from "./NotFound";
 import { connect } from "react-redux";
 
-// 이 함수는 스토어가 가진 상태값을 props로 받아오기 위한 함수예요.
-const mapStateToProps = (state) => ({
-  ...state,
-});
+const mapStateToProps = (state) => {
+  return { ...state };
+};
 
-// 이 함수는 값을 변화시키기 위한 액션 생성 함수를 props로 받아오기 위한 함수예요.
-const mapDispatchToProps = (dispatch) => ({
-  load: () => {},
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    load: () => {},
+  };
+};
 
 class App extends React.Component {
   constructor(props) {
@@ -33,12 +31,31 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {/* {this.state.page === "start" && (
+                    <Start name={this.state.name} />
+                )}
+                {this.state.page === "quiz" && <Quiz list={this.state.list} />}
+                {this.state.page === "score" && (
+                    <Score
+                        scoreMsg={this.state.scoreMsg}
+                        name={this.state.name}
+                    />
+                )}
+                {this.state.page === "ranking" && <Ranking />}
+                {this.state.page === "message" && (
+                    <Message name={this.state.name} />
+                )} */}
+        {/* <Start name={this.state.name} /> */}
+        {/* <Quiz /> */}
+        {/* <Score /> */}
+
         <Switch>
-          <Route path="/quiz" component={Quiz} />
           <Route path="/" exact component={Start} />
+          <Route path="/quiz" component={Quiz} />
           <Route path="/score" component={Score} />
           <Route path="/message" component={Message} />
           <Route path="/ranking" component={Ranking} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     );

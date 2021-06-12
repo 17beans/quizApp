@@ -1,6 +1,7 @@
-import React from "react";
-import img from "./scc_img01.png";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import img from "./scc_img01.png";
 import { addRank } from "./redux/modules/rank";
 
 const Message = (props) => {
@@ -9,10 +10,11 @@ const Message = (props) => {
   const answers = useSelector((state) => state.quiz.answers);
   const user_name = useSelector((state) => state.rank.user_name);
 
-  const input_text = React.useRef(null);
+  const input_text = useRef();
+
   // 정답만 걸러내기
-  let correct = answers.filter((answer) => {
-    return answer;
+  let correct = answers.filter((a) => {
+    return a;
   });
 
   // 점수 계산하기
@@ -20,61 +22,19 @@ const Message = (props) => {
 
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        width: "100vw",
-        overflow: "hidden",
-        padding: "16px",
-        boxSizing: "border-box",
-      }}
-    >
-      <div
-        className="outter"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          height: "100vh",
-          width: "100vw",
-          overflow: "hidden",
-          padding: "0px 10vw",
-          boxSizing: "border-box",
-          maxWidth: "400px",
-          margin: "0px auto",
-        }}
-      >
-        <img
-          src={img}
-          style={{ width: "80%", margin: "-70px 16px 48px 16px" }}
-        />
-        <h1 style={{ fontSize: "1.5em", margin: "0px", lineHeight: "1.4" }}>
-          <span
-            style={{
-              backgroundColor: "#fef5d4",
-              padding: "5px 10px",
-              borderRadius: "30px",
-            }}
-          >
-            {name}
-          </span>
-          에게 한마디
-        </h1>
-        <input
+    <Container>
+      <Outter>
+        <Image src={img} />
+        <Text>
+          <HighLight>{name}</HighLight>
+          에게 남기는 한 마디
+        </Text>
+        <TextInput
           ref={input_text}
           type="text"
-          style={{
-            padding: "10px",
-            margin: "24px 0px",
-            border: "1px solid #dadafc",
-            borderRadius: "30px",
-            width: "100%",
-          }}
-          placeholder="한 마디 적기"
+          placeholder="한 마디 작성해 주세요!"
         />
-        <button
+        <Button
           onClick={() => {
             let rank_info = {
               score: parseInt(score),
@@ -87,18 +47,67 @@ const Message = (props) => {
             // 주소 이동
             props.history.push("/ranking");
           }}
-          style={{
-            padding: "8px 24px",
-            backgroundColor: "#dadafc",
-            borderRadius: "30px",
-            border: "#dadafc",
-          }}
         >
-          한마디하고 랭킹 보러 가기
-        </button>
-      </div>
-    </div>
+          남기고 랭킹 보러 가기
+        </Button>
+      </Outter>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+`;
+
+const Outter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  padding: 0px 10vw;
+  box-sizing: border-box;
+  max-width: 400px;
+`;
+
+const Image = styled.img`
+  width: 80%;
+  margin: 16px;
+`;
+
+const Text = styled.h1`
+  font-size: 1.5em;
+  margin: 0px;
+  line-height: 1.4;
+`;
+
+const HighLight = styled.div`
+  background-color: #fef5d4;
+  padding: 5px 10px;
+  border-radius: 30px;
+`;
+
+const TextInput = styled.input`
+  padding: 10px;
+  margin: 24px 0px;
+  border: 1px solid #dadafc;
+  border-radius: 30px;
+  width: 100%;
+  // backgroundColor: #dadafc55;
+`;
+
+const Button = styled.button`
+  padding: 8px 24px;
+  background-color: #dadafc;
+  border-radius: 30px;
+  border: #dadafc;
+`;
 
 export default Message;

@@ -18,7 +18,22 @@ const initialState = {
     80: "우와! 우리는 엄청 가까운 사이!",
     100: "둘도 없는 단짝이에요! :)",
   },
-  ranking: [{ score: 40, name: "임민영", message: "안녕 르탄아!" }],
+  ranking: [
+    { score: 80, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
+  ],
 };
 
 // Action Creators
@@ -41,7 +56,6 @@ export const getRank = (rank_list) => {
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    // do reducer stuff
     case "rank/ADD_USER_NAME": {
       return { ...state, user_name: action.user_name };
     }

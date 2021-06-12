@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import img from "./scc_img01.png";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addUserName } from "./redux/modules/rank";
 
 const Start = (props) => {
   const dispatch = useDispatch();
+  const input_text = useRef();
   const name = useSelector((state) => state.quiz.name);
-  const input_text = React.useRef(null);
-
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
   return (
     <div
@@ -33,14 +32,16 @@ const Start = (props) => {
           padding: "0px 10vw",
           boxSizing: "border-box",
           maxWidth: "400px",
-          margin: "0px auto",
         }}
       >
-        <img
-          src={img}
-          style={{ width: "80%", margin: "-70px 16px 48px 16px" }}
-        />
-        <h1 style={{ fontSize: "1.5em", margin: "0px", lineHeight: "1.4" }}>
+        <img src={img} style={{ width: "80%", margin: "16px" }} />
+        <h1
+          style={{
+            fontSize: "1.5em",
+            margin: "0px",
+            lineHeight: "1.4",
+          }}
+        >
           나는{" "}
           <span
             style={{
@@ -67,17 +68,15 @@ const Start = (props) => {
           placeholder="내 이름"
         />
         <button
-          onClick={() => {
-            // 이름 저장
-            dispatch(addUserName(input_text.current.value));
-            // 페이지 이동
-            props.history.push("/quiz");
-          }}
           style={{
             padding: "8px 24px",
             backgroundColor: "#dadafc",
             borderRadius: "30px",
             border: "#dadafc",
+          }}
+          onClick={() => {
+            dispatch(addUserName(input_text.current.value));
+            props.history.push("/quiz");
           }}
         >
           시작하기
