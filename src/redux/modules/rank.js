@@ -1,4 +1,8 @@
-// Actions
+import { firestore } from "../../firebase";
+
+const rank_db = firestore.collection("rank");
+
+// Action
 
 // 유저 이름을 바꾼다
 const ADD_USER_NAME = "rank/ADD_USER_NAME";
@@ -9,6 +13,8 @@ const ADD_RANK = "rank/ADD_RANK";
 // 랭킹정보를 가져온다
 const GET_RANK = "rank/GET_RANK";
 
+const IS_LOADED = "rank/IS_LOADED";
+
 const initialState = {
   user_name: "",
   user_message: "",
@@ -18,22 +24,8 @@ const initialState = {
     80: "우와! 우리는 엄청 가까운 사이!",
     100: "둘도 없는 단짝이에요! :)",
   },
-  ranking: [
-    { score: 80, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-    { score: 40, name: "스파르타", message: "안녕 르탄아!" },
-  ],
+  ranking: [],
+  is_loaded: false,
 };
 
 // Action Creators
@@ -53,6 +45,43 @@ export const getRank = (rank_list) => {
   return { type: GET_RANK, rank_list };
 };
 
+export const isLoaded = (loaded) => {
+  return { type: IS_LOADED, loaded };
+};
+
+export const getRankFB = () => {
+  return function (dispatch) {
+    dispatch(isLoaded(false));
+
+    rank_db.get().then((docs) => {
+      let rank_data = [];
+
+      docs.forEach((doc) => {
+        rank_data = [...rank_data, { id: doc.id, ...doc.data() }];
+      });
+
+      dispatch(getRank(rank_data));
+      dispatch(isLoaded(true));
+    });
+  };
+};
+
+export const addRankFB = (rank_info) => {
+  return function (dispatch) {
+    dispatch(isLoaded(false));
+
+    let rank_data = {
+      message: rank_info.message,
+      name: rank_info.name,
+      score: rank_info.score,
+    };
+    rank_db.add(rank_data).then((doc) => {
+      rank_data = { ...rank_data, id: doc.id, current: true };
+      dispatch(addRank(rank_data));
+    });
+  };
+};
+
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -68,8 +97,26 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, ranking: [...state.ranking, action.rank_info] };
     }
 
+    case "rank/IS_LOADED": {
+      return { ...state, is_loaded: action.loaded };
+    }
+
     case "rank/GET_RANK": {
-      return { ...state, ranking: action.rank_list };
+      let ranking_data = [...state.ranking];
+
+      const rank_ids = state.ranking.map((r, i) => {
+        return r.id;
+      });
+
+      console.log("rank_ids: " + rank_ids);
+
+      const rank_data_fb = action.rank_list.filter((r, i) => {
+        if (rank_ids.indexOf(r.id) === -1) {
+          ranking_data = [...ranking_data, r];
+        }
+      });
+
+      return { ...state, ranking: ranking_data };
     }
 
     default:

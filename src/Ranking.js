@@ -1,32 +1,41 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
-
+import img from "./Loading.gif";
 import { useSelector, useDispatch } from "react-redux";
 import { resetAnswer } from "./redux/modules/quiz";
+import { getRankFB } from "./redux/modules/rank";
 
 const Ranking = (props) => {
   const dispatch = useDispatch();
   const _ranking = useSelector((state) => state.rank.ranking);
-  // Array 내장 함수 sort로 정렬하자!
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-
-  const user_rank = useRef();
+  const is_loaded = useSelector((state) => state.rank.is_loaded);
 
   React.useEffect(() => {
-    if (!user_rank) {
+    dispatch(getRankFB());
+    if (!user_rank.current) {
       return;
     }
+
     window.scrollTo({
-      top: user_rank.current.offsetTop - 60,
+      top: user_rank.current.offsetTop - 68,
       left: 0,
       behavior: "smooth",
     });
   }, []);
 
+  const user_rank = React.useRef(null);
+
   const ranking = _ranking.sort((a, b) => {
-    // 높은 수가 맨 앞으로 오도록!
     return b.score - a.score;
   });
+
+  if (!is_loaded) {
+    return (
+      <ImgContainer>
+        <Img src={img} />
+      </ImgContainer>
+    );
+  }
 
   return (
     <RankContainer>
@@ -149,6 +158,17 @@ const Button = styled.button`
   margin: 0px 10vw;
   border: 1px solid #dadafc;
   width: 80vw;
+`;
+
+const ImgContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 100px;
 `;
 
 export default Ranking;
