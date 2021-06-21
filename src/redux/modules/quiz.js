@@ -12,15 +12,12 @@ const initialState = {
   score_texts: {
     60: "우린 친구! 앞으로도 더 친하게 지내요! :)",
     80: "우와! 우리는 엄청 가까운 사이!",
-    100: "둘도 없는 단짝이에요! :)",
+    100: "우와, 만점!!! 이 정도면 쌍둥이 아닌가요?!",
   },
   answers: [],
   quiz: [
-    { question: "르탄이는 1살이다.", answer: "O" },
-    { question: "르탄이는 2살이다.", answer: "O" },
-    { question: "르탄이는 3살이다.", answer: "O" },
-    { question: "르탄이는 4살이다.", answer: "O" },
-    { question: "르탄이는 5살이다.", answer: "O" },
+    { question: "", answer: "O" },
+    { question: "", answer: "X" },
   ],
 };
 
