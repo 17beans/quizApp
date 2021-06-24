@@ -9,6 +9,8 @@ const RESET_ANSWER = "quiz/RESET_ANSWER";
 
 const ADD_QUIZ = "quiz/ADD_QUIZ";
 
+const DELETE_QUIZ = "quiz/DELETE_QUIZ";
+
 const initialState = {
   name: "르탄이",
   score_texts: {
@@ -40,6 +42,10 @@ export const addQuiz = (quiz, answer) => {
   return { type: ADD_QUIZ, quiz, answer };
 };
 
+export const deleteQuiz = (quiz) => {
+  return { type: DELETE_QUIZ, quiz };
+};
+
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -67,6 +73,15 @@ export default function reducer(state = initialState, action = {}) {
       // return {
       //   quiz: [...state.quiz, { question: action.quiz, answer: action.answer }],
       // };
+    }
+
+    case "quiz/DELETE_QUIZ": {
+      const new_QuizList = state.quiz.filter((l, i) => {
+        if (l !== action.quiz) {
+          return l;
+        }
+      });
+      return { quiz: new_QuizList };
     }
 
     default:

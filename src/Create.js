@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { addQuiz, getQuiz } from "./redux/modules/quiz";
+import { addQuiz, getQuiz, deleteQuiz } from "./redux/modules/quiz";
 
 // react-bootstrap
 import {
@@ -39,6 +39,14 @@ const Create = (props) => {
       alert("빈 질문은 추가할 수 없습니다!");
     } else {
       dispatch(addQuiz(input_text.current.value, radioValue));
+      input_text.current.value = "";
+    }
+  };
+
+  const DeleteQuiz = (quiz) => {
+    const result = window.confirm("이 퀴즈를 삭제할까요?");
+    if (result === true) {
+      dispatch(deleteQuiz(quiz));
     }
   };
 
@@ -50,13 +58,14 @@ const Create = (props) => {
 
   const IsNoQuiz = () => {
     return (
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <div>퀴즈: {quiz.length}개</div>
         <div
           style={{
-            marginTop: "16px",
+            marginTop: "65%",
             fontSize: "20px",
             fontWeight: 600,
+            alignSelf: "center",
           }}
         >
           퀴즈를 추가해 주세요!
@@ -69,15 +78,26 @@ const Create = (props) => {
     return (
       <div>
         질문: {quiz.length} 개
-        {quiz.map((q, i) => {
-          return (
-            <ItemStyle key={i}>
-              질문: {q.question}
-              <br />
-              정답: {q.answer}
-            </ItemStyle>
-          );
-        })}
+        <ListStyle>
+          {quiz.map((q, i) => {
+            return (
+              <ItemStyle key={q.question.length + i}>
+                <div>
+                  질문: {q.question}
+                  <br />
+                  정답: {q.answer}
+                </div>
+                <ItemDelete
+                  onClick={() => {
+                    DeleteQuiz(q);
+                  }}
+                >
+                  X
+                </ItemDelete>
+              </ItemStyle>
+            );
+          })}
+        </ListStyle>
       </div>
     );
   };
@@ -151,14 +171,14 @@ const QuizBox = styled.div`
 //   margin-top: 20px;
 //   /* background-color: #666; */
 // `;
-const InputQuiz = styled.input`
-  width: 60vw;
-  padding: 14px;
-  border-radius: 30px;
-  border: 0px;
-  font-size: 16px;
-  background-color: #dadafc;
-`;
+// const InputQuiz = styled.input`
+//   width: 60vw;
+//   padding: 14px;
+//   border-radius: 30px;
+//   border: 0px;
+//   font-size: 16px;
+//   background-color: #dadafc;
+// `;
 // const BtnAdd = styled.button`
 //   /* height: 100px; */
 //   width: 20vw;
@@ -176,17 +196,33 @@ const BtnNext = styled.button`
   font-size: 22px;
   border-radius: 25px;
   border: 0px;
-  background-color: #dadafc;
+  background-color: #ffdada;
   &:focus {
     border: 3px solid orange;
   }
 `;
+const ListStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+`;
 const ItemStyle = styled.div`
+  display: flex;
   padding: 16px;
   margin: 8px;
   font-weight: 500;
   background-color: aliceblue;
   text-align: left;
+  justify-content: space-between;
+`;
+const ItemDelete = styled.button`
+  width: 12vw;
+  height: 6vh;
+  border: 0px;
+  background-color: #ffdada;
+  /* background-color: transparent; */
 `;
 
 export default Create;
