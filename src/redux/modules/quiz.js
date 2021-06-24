@@ -17,7 +17,7 @@ const initialState = {
     100: "우와, 만점!!! 이 정도면 쌍둥이 아닌가요?!",
   },
   answers: [],
-  quiz: [{ question: "르탄이는 1살이다.", answer: "O" }],
+  quiz: [],
 };
 
 // Action Creators
@@ -59,7 +59,14 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case "quiz/ADD_QUIZ": {
-      return { ...state, question: action.question, answer: action.answer };
+      const new_quizList = [
+        ...state.quiz,
+        { question: action.quiz, answer: action.answer },
+      ];
+      return { quiz: new_quizList };
+      // return {
+      //   quiz: [...state.quiz, { question: action.quiz, answer: action.answer }],
+      // };
     }
 
     default:

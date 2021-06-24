@@ -24,7 +24,7 @@ const Create = (props) => {
     { name: "X", value: "X" },
   ];
 
-  const [question, setQuestion] = useState();
+  // const [question, setQuestion] = useState();
   const [radioValue, setRadioValue] = useState("O");
 
   const loadQuiz = () => {
@@ -38,7 +38,6 @@ const Create = (props) => {
     ) {
       alert("빈 질문은 추가할 수 없습니다!");
     } else {
-      alert("input: " + input_text.current.value + "\nradio: " + radioValue);
       dispatch(addQuiz(input_text.current.value, radioValue));
     }
   };
@@ -70,13 +69,12 @@ const Create = (props) => {
     return (
       <div>
         질문: {quiz.length} 개
-        <quizList />
         {quiz.map((q, i) => {
           return (
             <ItemStyle key={i}>
               질문: {q.question}
               <br />
-              답: {q.answer}
+              정답: {q.answer}
             </ItemStyle>
           );
         })}
