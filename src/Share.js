@@ -2,12 +2,23 @@ import React, { useRef } from "react";
 import img from "./scc_img01.png";
 import { useSelector, useDispatch } from "react-redux";
 import { addUserName } from "./redux/modules/rank";
+import { addQuizListFB } from "./redux/modules/quiz";
+import { firestore } from "./firebase";
 
 const Share = (props) => {
   const dispatch = useDispatch();
   const input_text = useRef();
-  const name = useSelector((state) => state.quiz.name);
+  const quizList = useSelector((state) => state.quiz.quiz);
+  // const name = useSelector((state) => state.quiz.name);
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
+
+  const shareQuiz = () => {
+    // await dispatch(addUserName(input_text.current.value));
+    let name = input_text.current.value;
+    dispatch(addQuizListFB(name, quizList));
+    props.history.push("/quiz");
+  };
+
   return (
     <div
       style={{
@@ -42,17 +53,7 @@ const Share = (props) => {
             lineHeight: "1.4",
           }}
         >
-          나는{" "}
-          <span
-            style={{
-              backgroundColor: "#fef5d4",
-              padding: "5px 10px",
-              borderRadius: "30px",
-            }}
-          >
-            {name}
-          </span>
-          에 대해 얼마나 알고 있을까?
+          이름을 적어주세요!
         </h1>
         <input
           ref={input_text}
@@ -65,7 +66,7 @@ const Share = (props) => {
             width: "100%",
             // backgroundColor: "#dadafc55",
           }}
-          placeholder="내 이름"
+          placeholder="이름"
         />
         <button
           style={{
@@ -74,12 +75,9 @@ const Share = (props) => {
             borderRadius: "30px",
             border: "#dadafc",
           }}
-          onClick={() => {
-            dispatch(addUserName(input_text.current.value));
-            props.history.push("/quiz");
-          }}
+          onClick={shareQuiz}
         >
-          시작하기
+          퀴즈 공유하기
         </button>
       </div>
     </div>

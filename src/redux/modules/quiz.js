@@ -1,3 +1,7 @@
+import { firestore } from "../../firebase";
+
+const quiz_db = firestore.collection("quiz");
+
 // Actions
 
 // 퀴즈 데이터 가져온다
@@ -12,11 +16,11 @@ const ADD_QUIZ = "quiz/ADD_QUIZ";
 const DELETE_QUIZ = "quiz/DELETE_QUIZ";
 
 const initialState = {
-  name: "르탄이",
+  name: Date.now() + "-이름 없음",
   score_texts: {
     60: "우린 친구! 앞으로도 더 친하게 지내요! :)",
     80: "우와! 우리는 엄청 가까운 사이!",
-    100: "우와, 만점!!! 이 정도면 쌍둥이 아닌가요?!",
+    100: "우와 만점!!! 이 정도면 쌍둥이 아닌가요?!",
   },
   answers: [],
   quiz: [],
@@ -44,6 +48,41 @@ export const addQuiz = (quiz, answer) => {
 
 export const deleteQuiz = (quiz) => {
   return { type: DELETE_QUIZ, quiz };
+};
+
+// Firebase Function
+
+export const loadQuizFB = () => {
+  return function (dispatch) {
+    quiz_db.get().then((docs) => {
+      let bucket_data = [];
+
+      docs.forEach((doc) => {
+        if (doc.exists) {
+          bucket_data = [...bucket_data, { id: doc.id, ...doc.data() }];
+        }
+      });
+
+      // console.log(bucket_data);
+      dispatch(getQuiz(bucket_data));
+    });
+  };
+};
+
+// export const addQuizListFB = (name, quizList) => {
+//   // 파이어베이스에 퀴즈리스트와 이름을 객체로 올리는 작업
+//   let list = { name: name, quiz: quizList };
+//   quiz_db.add(list);
+// };
+
+export const addQuizListFB = (name, quizList) => {
+  // 파이어베이스에 퀴즈리스트와 이름을 객체로 올리는 작업
+  let list = { name: name, quiz: quizList };
+  console.log("list.name: " + list.name);
+  console.log("list.quizList: " + JSON.stringify(quizList));
+  quiz_db.add(list).then((docRef) => {
+    list = { ...quizList, id: docRef.id };
+  });
 };
 
 // Reducer
