@@ -12,6 +12,8 @@ const Quiz = (props) => {
   const [num, setNum] = useState(0);
   const [interval, setInterval] = useState(false);
   const quiz = useSelector((state) => state.quiz.quiz);
+  // const doc = props.match.params.doc;
+  // console.log("doc: " + doc);
   const dispatch = useDispatch();
 
   const onSwipe = (direction) => {

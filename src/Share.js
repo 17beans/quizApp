@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import img from "./scc_img01.png";
 import { useSelector, useDispatch } from "react-redux";
-import { addUserName } from "./redux/modules/rank";
 import { addQuizListFB } from "./redux/modules/quiz";
 import { firestore } from "./firebase";
 
@@ -14,9 +13,14 @@ const Share = (props) => {
 
   const shareQuiz = () => {
     // await dispatch(addUserName(input_text.current.value));
-    let name = input_text.current.value;
-    dispatch(addQuizListFB(name, quizList));
-    props.history.push("/quiz");
+    if (input_text.current.value === "") {
+      alert("이름 혹은 닉네임을 입력해 주세요!");
+    } else {
+      let name = input_text.current.value;
+      dispatch(addQuizListFB(name, quizList));
+
+      // props.history.push("/quiz");
+    }
   };
 
   return (
@@ -45,7 +49,7 @@ const Share = (props) => {
           maxWidth: "400px",
         }}
       >
-        <img src={img} style={{ width: "80%", margin: "16px" }} />
+        <img src={img} style={{ width: "80%", margin: "16px" }} alt="images" />
         <h1
           style={{
             fontSize: "1.5em",

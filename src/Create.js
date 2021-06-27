@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { addQuiz, getQuiz, deleteQuiz } from "./redux/modules/quiz";
+import { addQuiz, deleteQuiz } from "./redux/modules/quiz";
 import AdSense from "react-adsense";
 
 // react-bootstrap
@@ -28,10 +28,6 @@ const Create = (props) => {
   // const [question, setQuestion] = useState();
   const [radioValue, setRadioValue] = useState("O");
 
-  const loadQuiz = () => {
-    dispatch(getQuiz());
-  };
-
   const AddQuiz = () => {
     if (
       input_text.current.value === "" ||
@@ -55,10 +51,6 @@ const Create = (props) => {
     // console.log(JSON.stringify(quiz));
     props.history.push("/share");
   };
-
-  useEffect(() => {
-    loadQuiz();
-  }, []);
 
   const IsNoQuiz = () => {
     return (
@@ -120,7 +112,10 @@ const Create = (props) => {
       <Title>퀴즈 만들기</Title>
       <QuizBox>
         {/* {JSON.stringify(quiz)} */}
-        {!quiz.length > 0 ? <IsNoQuiz /> : <IsQuiz />}
+        {/* {!quiz.length > 0 ? <IsNoQuiz /> : <IsQuiz />} */}
+        {quiz === "" ? <IsNoQuiz /> : <IsQuiz />}
+        text
+        {console.log("quiz: " + JSON.stringify(quiz))}
       </QuizBox>
       {/* <InputBox> */}
       {/* <InputQuiz

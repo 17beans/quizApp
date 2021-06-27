@@ -13,10 +13,14 @@ const RESET_ANSWER = "quiz/RESET_ANSWER";
 
 const ADD_QUIZ = "quiz/ADD_QUIZ";
 
+const SET_QUIZ = "quiz/SET_QUIZ";
+
 const DELETE_QUIZ = "quiz/DELETE_QUIZ";
 
+const ADD_DOCREF = "/quiz/ADD_DOCREF";
+
 const initialState = {
-  name: Date.now() + "-이름 없음",
+  name: "",
   score_texts: {
     60: "우린 친구! 앞으로도 더 친하게 지내요! :)",
     80: "우와! 우리는 엄청 가까운 사이!",
@@ -46,8 +50,16 @@ export const addQuiz = (quiz, answer) => {
   return { type: ADD_QUIZ, quiz, answer };
 };
 
+export const setQuiz = (name, quizList) => {
+  return { type: SET_QUIZ, name, quizList };
+};
+
 export const deleteQuiz = (quiz) => {
   return { type: DELETE_QUIZ, quiz };
+};
+
+const addDocRef = (docRef) => {
+  return { type: ADD_DOCREF, docRef };
 };
 
 // Firebase Function
@@ -77,13 +89,50 @@ export const loadQuizFB = () => {
 
 export const addQuizListFB = (name, quizList) => {
   // 파이어베이스에 퀴즈리스트와 이름을 객체로 올리는 작업
-  let list = { name: name, quiz: quizList };
-  console.log("list.name: " + list.name);
-  console.log("list.quizList: " + JSON.stringify(quizList));
-  quiz_db.add(list).then((docRef) => {
-    list = { ...quizList, id: docRef.id };
-  });
+  return function (dispatch) {
+    let list = { name: name, quiz: quizList };
+    console.log("list.name: " + list.name);
+    console.log("list.quizList: " + JSON.stringify(quizList));
+    quiz_db.add(list).then((docRef) => {
+      dispatch(addDocRef(docRef.id));
+      console.log("docId: " + docRef.id);
+      let url = "http://localhost:3000/" + docRef.id;
+      console.log("url: " + url);
+    });
+  };
 };
+
+// function KakaoLinkSend() {
+//   Kakao.API.request({
+//     url: "/v1/api/talk/friends/message/send",
+//     data: {
+//       template_object: {
+//         object_type: "feed",
+//         content: {
+//           title: "카카오톡 링크 4.0",
+//           description: "디폴트 템플릿 FEED",
+//           image_url:
+//             "http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+//           link: {
+//             web_url: "https://developers.kakao.com",
+//             mobile_web_url: "https://developers.kakao.com",
+//           },
+//         },
+//         social: {
+//           like_count: 100,
+//           comment_count: 200,
+//         },
+//         button_title: "바로 확인",
+//       },
+//     },
+//     success: function (response) {
+//       console.log(response);
+//     },
+//     fail: function (error) {
+//       console.log(error);
+//     },
+//   });
+// }
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
@@ -114,6 +163,11 @@ export default function reducer(state = initialState, action = {}) {
       // };
     }
 
+    case "quiz/SET_QUIZ": {
+      // const new_state = [{}];
+      return { ...state, name: action.name, quiz: action.quizList };
+    }
+
     case "quiz/DELETE_QUIZ": {
       const new_QuizList = state.quiz.filter((l, i) => {
         if (l !== action.quiz) {
@@ -121,6 +175,11 @@ export default function reducer(state = initialState, action = {}) {
         }
       });
       return { quiz: new_QuizList };
+    }
+
+    case "quiz/ADD_DOCREF": {
+      const newQuizList = { ...state, docRef: action.docRef.id };
+      return newQuizList;
     }
 
     default:

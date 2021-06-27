@@ -1,13 +1,40 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import img from "./scc_img01.png";
 import { useSelector, useDispatch } from "react-redux";
+import { setQuiz } from "./redux/modules/quiz";
 import { addUserName } from "./redux/modules/rank";
+import { firestore } from "./firebase";
 
 const Start = (props) => {
   const dispatch = useDispatch();
   const input_text = useRef();
+  const doc = props.match.params.doc;
+  // console.log("doc: " + JSON.stringify(doc));
+  const quiz_db = firestore.collection("quiz").doc(doc);
+  let quizList;
   const name = useSelector((state) => state.quiz.name);
+
+  const loadQuiz = async () => {
+    await quiz_db.get().then((doc) => {
+      if (doc.exists) {
+        // console.log("Document data:", doc.data());
+        quizList = doc.data();
+        // console.log("docData: " + JSON.stringify(quizList));
+        // console.log("name: " + JSON.stringify(quizList.name));
+        // console.log("quizList: " + JSON.stringify(quizList.quizList));
+        dispatch(setQuiz(quizList.name, quizList.quizList));
+      } else {
+        console.log("No such document!");
+      }
+    });
+  };
+
+  loadQuiz();
+
+  useEffect(() => {}, []);
+
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
+
   return (
     <div
       style={{
@@ -34,7 +61,7 @@ const Start = (props) => {
           maxWidth: "400px",
         }}
       >
-        <img src={img} style={{ width: "80%", margin: "16px" }} />
+        <img src={img} style={{ width: "80%", margin: "16px" }} alt="images" />
         <h1
           style={{
             fontSize: "1.5em",
