@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import img from "./scc_img01.png";
 import { useSelector, useDispatch } from "react-redux";
 import { addQuizListFB } from "./redux/modules/quiz";
-import { firestore } from "./firebase";
 
 const Share = (props) => {
   const dispatch = useDispatch();

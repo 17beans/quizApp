@@ -34,8 +34,8 @@ const initialState = {
 // export const getQuiz = (quiz_list) => {
 //   return { type: GET_QUIZ, quiz_list };
 // };
-export const getQuiz = () => {
-  return { type: GET_QUIZ };
+export const getQuiz = (data) => {
+  return { type: GET_QUIZ, data };
 };
 
 export const addAnswer = (answer) => {
@@ -64,20 +64,15 @@ const addDocRef = (docRef) => {
 
 // Firebase Function
 
-export const loadQuizFB = () => {
+export const loadQuizFB = (docId) => {
   return function (dispatch) {
-    quiz_db.get().then((docs) => {
-      let bucket_data = [];
-
-      docs.forEach((doc) => {
-        if (doc.exists) {
-          bucket_data = [...bucket_data, { id: doc.id, ...doc.data() }];
-        }
+    quiz_db
+      .doc(docId)
+      .get()
+      .then((doc) => {
+        console.log("doc: " + JSON.stringify(doc.data()));
+        dispatch(getQuiz(doc.data()));
       });
-
-      // console.log(bucket_data);
-      dispatch(getQuiz(bucket_data));
-    });
   };
 };
 
@@ -141,7 +136,7 @@ export default function reducer(state = initialState, action = {}) {
     //   return { ...state, quiz: action.quiz_list };
     // }
     case "quiz/GET_QUIZ": {
-      return { ...state };
+      return { ...state, name: action.data.name, quiz: action.data.quiz };
     }
 
     case "quiz/ADD_ANSWER": {

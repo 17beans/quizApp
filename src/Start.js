@@ -1,37 +1,45 @@
 import React, { useEffect, useRef } from "react";
 import img from "./scc_img01.png";
 import { useSelector, useDispatch } from "react-redux";
-import { setQuiz } from "./redux/modules/quiz";
+import { loadQuizFB, setQuiz } from "./redux/modules/quiz";
 import { addUserName } from "./redux/modules/rank";
-import { firestore } from "./firebase";
 
 const Start = (props) => {
   const dispatch = useDispatch();
   const input_text = useRef();
-  const doc = props.match.params.doc;
+  const docId = props.match.params.doc;
   // console.log("doc: " + JSON.stringify(doc));
+
+  const quizName = useSelector((state) => state.quiz.name);
+  // const rankName = useSelector((state) => state.rank.name);
+
+  // dispatch(setQuiz(quizName, doc));
+  useEffect(() => {
+    dispatch(loadQuizFB(docId));
+  }, []);
+  /*
   const quiz_db = firestore.collection("quiz").doc(doc);
-  let quizList;
-  const name = useSelector((state) => state.quiz.name);
 
-  const loadQuiz = async () => {
-    await quiz_db.get().then((doc) => {
-      if (doc.exists) {
-        // console.log("Document data:", doc.data());
-        quizList = doc.data();
-        // console.log("docData: " + JSON.stringify(quizList));
-        // console.log("name: " + JSON.stringify(quizList.name));
-        // console.log("quizList: " + JSON.stringify(quizList.quizList));
-        dispatch(setQuiz(quizList.name, quizList.quizList));
-      } else {
-        console.log("No such document!");
-      }
-    });
-  };
+  quiz_db.get().then((doc) => {
+    if (doc.exists) {
+      // console.log("Document data:", doc.data());
+      quizList = doc.data();
+      // console.log("docData: " + JSON.stringify(quizList));
+      // console.log("name: " + JSON.stringify(quizList.name));
+      // console.log("quizList: " + JSON.stringify(quizList.quizList));
+      dispatch(setQuiz(quizList.name, quizList.quizList));
+    } else {
+      console.log("No such document!");
+    }
+  });
+  */
+  // const quiz = useSelector((state) => state.quiz.quiz);
 
-  loadQuiz();
+  // const loadQuiz = () => {};
 
-  useEffect(() => {}, []);
+  // loadQuiz();
+
+  // useEffect(() => {}, []);
 
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
 
@@ -77,7 +85,7 @@ const Start = (props) => {
               borderRadius: "30px",
             }}
           >
-            {name}
+            {quizName}
           </span>
           에 대해 얼마나 알고 있을까?
         </h1>
