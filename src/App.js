@@ -55,7 +55,7 @@ class App extends React.Component {
           {/* <Route path="/" exact component={Create} /> */}
           <Route path="/create" component={Create} />
           <Route path="/share" component={Share} />
-          <Route path="/:doc" exact component={Start} />
+          <Route path="/start/:doc" exact component={Start} />
           <Route path="/quiz" component={Quiz} />
           <Route path="/score" component={Score} />
           <Route path="/message" component={Message} />

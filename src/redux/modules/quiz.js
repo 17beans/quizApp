@@ -136,7 +136,7 @@ export default function reducer(state = initialState, action = {}) {
     //   return { ...state, quiz: action.quiz_list };
     // }
     case "quiz/GET_QUIZ": {
-      return { ...state, name: action.data.name, quiz: action.data.quiz };
+      return { ...state, name: action.data.name, quiz: action.data.quizList };
     }
 
     case "quiz/ADD_ANSWER": {

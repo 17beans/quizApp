@@ -12,10 +12,12 @@ const Start = (props) => {
 
   const quizName = useSelector((state) => state.quiz.name);
   // const rankName = useSelector((state) => state.rank.name);
+  const quiz = useSelector((state) => state.quiz.quiz);
 
   // dispatch(setQuiz(quizName, doc));
   useEffect(() => {
     dispatch(loadQuizFB(docId));
+    console.log("quiz: " + JSON.stringify(quiz));
   }, []);
   /*
   const quiz_db = firestore.collection("quiz").doc(doc);
