@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import img from "./scc_img01.png";
 import { useSelector, useDispatch } from "react-redux";
-import { loadQuizFB, setQuiz } from "./redux/modules/quiz";
+import { addDocRef, loadQuizFB, setQuiz } from "./redux/modules/quiz";
 import { addUserName } from "./redux/modules/rank";
 
 const Start = (props) => {
   const dispatch = useDispatch();
   const input_text = useRef();
   const docId = props.match.params.doc;
-  // console.log("doc: " + JSON.stringify(doc));
+  const docRef = useSelector((state) => state.quiz.docRef);
 
   const quizName = useSelector((state) => state.quiz.name);
   // const rankName = useSelector((state) => state.rank.name);
@@ -17,7 +17,10 @@ const Start = (props) => {
   // dispatch(setQuiz(quizName, doc));
   useEffect(() => {
     dispatch(loadQuizFB(docId));
-    console.log("quiz: " + JSON.stringify(quiz));
+    console.log("docRef: " + JSON.stringify(docRef));
+    // console.log("docId: " + JSON.stringify(docId));
+    // dispatch(addDocRef(docId));
+    // console.log("quiz: " + JSON.stringify(quiz));
   }, []);
   /*
   const quiz_db = firestore.collection("quiz").doc(doc);

@@ -53,6 +53,7 @@ export const getRankFB = () => {
   return function (dispatch) {
     dispatch(isLoaded(false));
 
+    // docId가 docId인 문서만 가져올 것
     rank_db.get().then((docs) => {
       let rank_data = [];
 
@@ -74,9 +75,15 @@ export const addRankFB = (rank_info) => {
       message: rank_info.message,
       name: rank_info.name,
       score: rank_info.score,
+      docId: rank_info.docId,
     };
     rank_db.add(rank_data).then((doc) => {
-      rank_data = { ...rank_data, id: doc.id, current: true };
+      rank_data = {
+        ...rank_data,
+        id: doc.id,
+        docId: rank_info.docId,
+        current: true,
+      };
       dispatch(addRank(rank_data));
     });
   };
@@ -94,7 +101,11 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case "rank/ADD_RANK": {
-      return { ...state, ranking: [...state.ranking, action.rank_info] };
+      return {
+        ...state,
+        ranking: [...state.ranking, action.rank_info],
+        docId: action.docId,
+      };
     }
 
     case "rank/IS_LOADED": {

@@ -28,6 +28,7 @@ const initialState = {
   },
   answers: [],
   quiz: [],
+  docRef: "",
 };
 
 // Action Creators
@@ -58,7 +59,7 @@ export const deleteQuiz = (quiz) => {
   return { type: DELETE_QUIZ, quiz };
 };
 
-const addDocRef = (docRef) => {
+export const addDocRef = (docRef) => {
   return { type: ADD_DOCREF, docRef };
 };
 
@@ -70,8 +71,9 @@ export const loadQuizFB = (docId) => {
       .doc(docId)
       .get()
       .then((doc) => {
-        console.log("doc: " + JSON.stringify(doc.data()));
+        // console.log("doc: " + JSON.stringify(doc.data()));
         dispatch(getQuiz(doc.data()));
+        dispatch(addDocRef(docId));
       });
   };
 };
@@ -136,7 +138,7 @@ export default function reducer(state = initialState, action = {}) {
     //   return { ...state, quiz: action.quiz_list };
     // }
     case "quiz/GET_QUIZ": {
-      return { ...state, name: action.data.name, quiz: action.data.quizList };
+      return { ...state, name: action.data.name, quiz: action.data.quiz };
     }
 
     case "quiz/ADD_ANSWER": {

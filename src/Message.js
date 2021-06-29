@@ -1,14 +1,15 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import img from "./scc_img01.png";
-import { addRank } from "./redux/modules/rank";
+import { addRank, addRankFB } from "./redux/modules/rank";
 
 const Message = (props) => {
   const dispatch = useDispatch();
   const name = useSelector((state) => state.quiz.name);
   const answers = useSelector((state) => state.quiz.answers);
   const user_name = useSelector((state) => state.rank.user_name);
+  const docId = useSelector((state) => state.quiz.docRef);
 
   const input_text = useRef();
 
@@ -19,6 +20,10 @@ const Message = (props) => {
 
   // 점수 계산하기
   let score = (correct.length / answers.length) * 100;
+
+  useEffect(() => {
+    console.log("docId: " + JSON.stringify(docId));
+  }, []);
 
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
   return (
@@ -40,10 +45,12 @@ const Message = (props) => {
               score: parseInt(score),
               name: user_name,
               message: input_text.current.value,
+              docId: docId,
               current: true,
             };
             // 랭킹 정보 넣기
-            dispatch(addRank(rank_info));
+            // dispatch(addRank(rank_info));
+            dispatch(addRankFB(rank_info));
             // 주소 이동
             props.history.push("/ranking");
           }}

@@ -9,9 +9,11 @@ const Ranking = (props) => {
   const dispatch = useDispatch();
   const _ranking = useSelector((state) => state.rank.ranking);
   const is_loaded = useSelector((state) => state.rank.is_loaded);
+  const docRef = useSelector((state) => state.quiz.docRef);
 
   React.useEffect(() => {
     dispatch(getRankFB());
+    console.log("docRef: " + JSON.stringify(docRef));
     if (!user_rank.current) {
       return;
     }

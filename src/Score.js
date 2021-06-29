@@ -44,7 +44,7 @@ const Score = (props) => {
         }}
         // outlined
       >
-        {name}에게 한마디 랭킹보기
+        {name}에게 한마디 남기기
       </Button>
     </ScoreContainer>
   );
