@@ -17,7 +17,7 @@ const SET_QUIZ = "quiz/SET_QUIZ";
 
 const DELETE_QUIZ = "quiz/DELETE_QUIZ";
 
-const ADD_DOCREF = "/quiz/ADD_DOCREF";
+const ADD_DOCREF = "quiz/ADD_DOCREF";
 
 const initialState = {
   name: "",
@@ -35,8 +35,8 @@ const initialState = {
 // export const getQuiz = (quiz_list) => {
 //   return { type: GET_QUIZ, quiz_list };
 // };
-export const getQuiz = (data) => {
-  return { type: GET_QUIZ, data };
+export const getQuiz = (data, docId) => {
+  return { type: GET_QUIZ, data, docId };
 };
 
 export const addAnswer = (answer) => {
@@ -71,8 +71,8 @@ export const loadQuizFB = (docId) => {
       .doc(docId)
       .get()
       .then((doc) => {
-        // console.log("doc: " + JSON.stringify(doc.data()));
-        dispatch(getQuiz(doc.data()));
+        // console.log("doc(loadQuizFB): " + JSON.stringify(doc.data()));
+        dispatch(getQuiz(doc.data(), docId));
         dispatch(addDocRef(docId));
       });
   };
@@ -88,13 +88,13 @@ export const addQuizListFB = (name, quizList) => {
   // 파이어베이스에 퀴즈리스트와 이름을 객체로 올리는 작업
   return function (dispatch) {
     let list = { name: name, quiz: quizList };
-    console.log("list.name: " + list.name);
-    console.log("list.quizList: " + JSON.stringify(quizList));
+    // console.log("list.name: " + list.name);
+    // console.log("list.quizList: " + JSON.stringify(quizList));
     quiz_db.add(list).then((docRef) => {
       dispatch(addDocRef(docRef.id));
-      console.log("docId: " + docRef.id);
-      let url = "http://localhost:3000/" + docRef.id;
-      console.log("url: " + url);
+      // console.log("docId: " + docRef.id);
+      // let url = "http://localhost:3000/" + docRef.id;
+      // console.log("url: " + url);
     });
   };
 };
@@ -138,7 +138,12 @@ export default function reducer(state = initialState, action = {}) {
     //   return { ...state, quiz: action.quiz_list };
     // }
     case "quiz/GET_QUIZ": {
-      return { ...state, name: action.data.name, quiz: action.data.quiz };
+      return {
+        ...state,
+        name: action.data.name,
+        quiz: action.data.quiz,
+        docRef: action.docId,
+      };
     }
 
     case "quiz/ADD_ANSWER": {
@@ -175,8 +180,8 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case "quiz/ADD_DOCREF": {
-      const newQuizList = { ...state, docRef: action.docRef.id };
-      return newQuizList;
+      // console.log("action.docRef: " + JSON.stringify(action.docRef));
+      return { ...state, docRef: action.docRef };
     }
 
     default:

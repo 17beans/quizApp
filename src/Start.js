@@ -12,12 +12,12 @@ const Start = (props) => {
 
   const quizName = useSelector((state) => state.quiz.name);
   // const rankName = useSelector((state) => state.rank.name);
-  const quiz = useSelector((state) => state.quiz.quiz);
+  // const quiz = useSelector((state) => state.quiz.quiz);
+  console.log("docRef: " + JSON.stringify(docRef));
 
   // dispatch(setQuiz(quizName, doc));
   useEffect(() => {
     dispatch(loadQuizFB(docId));
-    console.log("docRef: " + JSON.stringify(docRef));
     // console.log("docId: " + JSON.stringify(docId));
     // dispatch(addDocRef(docId));
     // console.log("quiz: " + JSON.stringify(quiz));

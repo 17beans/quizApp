@@ -101,6 +101,7 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case "rank/ADD_RANK": {
+      console.log("action.docId: " + JSON.stringify(action.docId));
       return {
         ...state,
         ranking: [...state.ranking, action.rank_info],

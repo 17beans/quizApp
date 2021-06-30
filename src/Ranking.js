@@ -55,7 +55,9 @@ const Ranking = (props) => {
                 <RankNum>{idx + 1}등</RankNum>
                 <RankUser>
                   <p>
-                    <b>{r.name}</b>
+                    <b>
+                      {r.name} {r.score}점
+                    </b>
                   </p>
                   <p>{r.message}</p>
                 </RankUser>
@@ -67,7 +69,9 @@ const Ranking = (props) => {
               <RankNum>{idx + 1}등</RankNum>
               <RankUser>
                 <p>
-                  <b>{r.name}</b>
+                  <b>
+                    {r.name} {r.score}점
+                  </b>
                 </p>
                 <p>{r.message}</p>
               </RankUser>
