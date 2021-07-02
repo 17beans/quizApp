@@ -12,8 +12,9 @@ const Ranking = (props) => {
   const docRef = useSelector((state) => state.quiz.docRef);
 
   React.useEffect(() => {
-    dispatch(getRankFB());
-    console.log("docRef: " + JSON.stringify(docRef));
+    // 주소에서 파라미터로 받아온 quiz 문서 이름이 저장된 quiz module의 docRef를 getRankFB에 매개변수로 넘겨줌
+    dispatch(getRankFB(docRef));
+    // console.log("docRef: " + JSON.stringify(docRef));
     if (!user_rank.current) {
       return;
     }
@@ -48,6 +49,10 @@ const Ranking = (props) => {
       </Topbar>
 
       <RankWrap>
+        {console.log("ranking(Ranking.js):" + JSON.stringify(ranking))}
+        {console.log("_ranking(Ranking.js):" + JSON.stringify(_ranking))}
+        {/* 위 콘솔이 2번 찍히는데 1번째는 current:true가 추가되지 않은 객체 배열, */}
+        {/* 2번째는 current:true가 message, name 등의 정보와 함께 통째로 추가된 객체 배열 */}
         {ranking.map((r, idx) => {
           if (r.current) {
             return (
@@ -55,9 +60,7 @@ const Ranking = (props) => {
                 <RankNum>{idx + 1}등</RankNum>
                 <RankUser>
                   <p>
-                    <b>
-                      {r.name} {r.score}점
-                    </b>
+                    <b>{r.name}</b>님: {r.score}점
                   </p>
                   <p>{r.message}</p>
                 </RankUser>
@@ -69,9 +72,7 @@ const Ranking = (props) => {
               <RankNum>{idx + 1}등</RankNum>
               <RankUser>
                 <p>
-                  <b>
-                    {r.name} {r.score}점
-                  </b>
+                  <b>{r.name}</b>님: {r.score}점
                 </p>
                 <p>{r.message}</p>
               </RankUser>
@@ -83,7 +84,7 @@ const Ranking = (props) => {
       <Button
         onClick={() => {
           dispatch(resetAnswer());
-          window.location.href = "/";
+          window.location.href = `/start/${docRef}`;
         }}
       >
         다시 하기
