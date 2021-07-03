@@ -1,19 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import img from "./scc_img01.png";
 import { useSelector, useDispatch } from "react-redux";
-import { addDocRef, loadQuizFB, setQuiz } from "./redux/modules/quiz";
+import { /*addDocRef,*/ loadQuizFB /*, setQuiz*/ } from "./redux/modules/quiz";
 import { addUserName } from "./redux/modules/rank";
 
 const Start = (props) => {
   const dispatch = useDispatch();
   const input_text = useRef();
   const docId = props.match.params.doc;
-  const docRef = useSelector((state) => state.quiz.docRef);
+  // const docRef = useSelector((state) => state.quiz.docRef);
 
   const quizName = useSelector((state) => state.quiz.name);
   // const rankName = useSelector((state) => state.rank.name);
   // const quiz = useSelector((state) => state.quiz.quiz);
-  console.log("docRef: " + JSON.stringify(docRef));
+  // console.log("docRef: " + JSON.stringify(docRef));
 
   // dispatch(setQuiz(quizName, doc));
   useEffect(() => {

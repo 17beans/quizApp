@@ -11,26 +11,32 @@ const Ranking = (props) => {
   const is_loaded = useSelector((state) => state.rank.is_loaded);
   const docRef = useSelector((state) => state.quiz.docRef);
 
+  const user_rank = React.useRef(null);
+
+  const ranking = _ranking.sort((a, b) => {
+    return b.score - a.score;
+  });
+
   React.useEffect(() => {
     // 주소에서 파라미터로 받아온 quiz 문서 이름이 저장된 quiz module의 docRef를 getRankFB에 매개변수로 넘겨줌
     dispatch(getRankFB(docRef));
     // console.log("docRef: " + JSON.stringify(docRef));
     if (!user_rank.current) {
       return;
+    } else {
+      console.log("==================================================");
+      console.log("Ranking.js");
+      console.log("==================================================");
+      console.log("user_rank");
+      console.log(user_rank);
+      console.log("==================================================");
+      window.scrollTo({
+        top: user_rank.current.offsetTop - 68,
+        left: 0,
+        behavior: "smooth",
+      });
     }
-
-    window.scrollTo({
-      top: user_rank.current.offsetTop - 68,
-      left: 0,
-      behavior: "smooth",
-    });
   }, []);
-
-  const user_rank = React.useRef(null);
-
-  const ranking = _ranking.sort((a, b) => {
-    return b.score - a.score;
-  });
 
   if (!is_loaded) {
     return (
@@ -49,8 +55,8 @@ const Ranking = (props) => {
       </Topbar>
 
       <RankWrap>
-        {console.log("ranking(Ranking.js):" + JSON.stringify(ranking))}
-        {console.log("_ranking(Ranking.js):" + JSON.stringify(_ranking))}
+        {/* {console.log("ranking(Ranking.js):" + JSON.stringify(ranking))}
+        {console.log("_ranking(Ranking.js):" + JSON.stringify(_ranking))} */}
         {/* 위 콘솔이 2번 찍히는데 1번째는 current:true가 추가되지 않은 객체 배열, */}
         {/* 2번째는 current:true가 message, name 등의 정보와 함께 통째로 추가된 객체 배열 */}
         {ranking.map((r, idx) => {

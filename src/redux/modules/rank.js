@@ -1,4 +1,5 @@
 import { firestore } from "../../firebase";
+import { push } from "connected-react-router";
 
 const rank_db = firestore.collection("rank");
 
@@ -112,6 +113,8 @@ export const addRankFB = (rank_info) => {
       };
 
       dispatch(addRank(rank_data));
+      // 여기서 history.push('/ranking)
+      dispatch(push("/ranking"));
     });
   };
 };
@@ -128,17 +131,17 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case "rank/ADD_RANK": {
-      let ranking = [...state.ranking, action.rank_info];
-      console.log("==================================================");
-      console.log("ADD_RANK");
-      console.log("==================================================");
-      console.log("rank_info:\n" + JSON.stringify(action.rank_info));
-      console.log("==================================================");
-      console.log("state.ranking:\n" + JSON.stringify(state.ranking));
-      console.log("==================================================");
-      console.log("합친 데이터:\n" + JSON.stringify(ranking));
-      console.log("==================================================");
-      console.log("==================================================");
+      // let ranking = [...state.ranking, action.rank_info];
+      // console.log("==================================================");
+      // console.log("ADD_RANK");
+      // console.log("==================================================");
+      // console.log("rank_info:\n" + JSON.stringify(action.rank_info));
+      // console.log("==================================================");
+      // console.log("state.ranking:\n" + JSON.stringify(state.ranking));
+      // console.log("==================================================");
+      // console.log("합친 데이터:\n" + JSON.stringify(ranking));
+      // console.log("==================================================");
+      // console.log("==================================================");
 
       return {
         ...state,
@@ -192,25 +195,22 @@ export default function reducer(state = initialState, action = {}) {
       // 데이터 확인해보기!
       // console.log("ranking_data(GET_RANK)):" + JSON.stringify(ranking_data));
 
-      console.log("==================================================");
-      console.log("GET_RANK");
-      console.log("==================================================");
-      console.log("rank_ids(기존 리덕스 스토어의 id들):\n" + rank_ids);
-      console.log("==================================================");
+      // console.log("==================================================");
+      // console.log("GET_RANK");
+      // console.log("==================================================");
+      // console.log("rank_ids:\n" + rank_ids);
+      // console.log("==================================================");
       // console.log(
       //   "ranking_data(기존 리덕스 스토어):\n" + JSON.stringify(ranking_data)
       // );
-      const test = state.ranking.map((r, i) => {
-        return r;
-      });
-      console.log("state.ranking:\n" + JSON.stringify(test));
-      console.log("==================================================");
-      console.log(
-        "action.rank_list(FB에서 가져온 랭킹):\n" +
-          JSON.stringify(action.rank_list)
-      );
-      console.log("==================================================");
-      console.log("==================================================");
+      // console.log("state.ranking:\n" + JSON.stringify(ranking_data));
+      // console.log("==================================================");
+      // console.log(
+      //   "action.rank_list(FB에서 가져온 랭킹):\n" +
+      //     JSON.stringify(action.rank_list)
+      // );
+      // console.log("==================================================");
+      // console.log("==================================================");
 
       return { ...state, ranking: ranking_data };
     }

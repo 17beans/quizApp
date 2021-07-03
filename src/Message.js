@@ -52,7 +52,8 @@ const Message = (props) => {
             // dispatch(addRank(rank_info));
             dispatch(addRankFB(rank_info));
             // 주소 이동
-            props.history.push("/ranking");
+            // connected-react-router로 처리
+            // props.history.push("/ranking");
           }}
         >
           남기고 랭킹 보러 가기
