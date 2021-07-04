@@ -68,12 +68,12 @@ export const getRankFB = (docRef) => {
           rank_data = [...rank_data, { id: doc.id, ...doc.data() }];
         });
 
-        console.log("==================================================");
-        console.log("getRankFB");
-        console.log("==================================================");
-        console.log("FB_rank_data:\n" + JSON.stringify(rank_data));
-        console.log("==================================================");
-        console.log("==================================================");
+        // console.log("==================================================");
+        // console.log("getRankFB");
+        // console.log("==================================================");
+        // console.log("FB_rank_data:\n" + JSON.stringify(rank_data));
+        // console.log("==================================================");
+        // console.log("==================================================");
 
         dispatch(getRank(rank_data));
         dispatch(isLoaded(true));

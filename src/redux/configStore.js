@@ -9,7 +9,9 @@ const middlewares = [thunk];
 
 export const history = createBrowserHistory();
 
+// 공식 문서에 보니 compose로 routerMiddleware(history)와 다른 middlewares를 compose()로 묶으라고 돼있음
 const enhancer = compose(
+  // 여기에 원래 ...middlewares만 있었는데 그 앞에 routerMiddleware(history)를 추가한 것
   applyMiddleware(routerMiddleware(history), ...middlewares)
 );
 

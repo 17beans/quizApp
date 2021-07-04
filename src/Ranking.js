@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, forwardRef, useCallback } from "react";
 import styled from "styled-components";
 import img from "./Loading.gif";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,91 +11,131 @@ const Ranking = (props) => {
   const is_loaded = useSelector((state) => state.rank.is_loaded);
   const docRef = useSelector((state) => state.quiz.docRef);
 
-  const user_rank = React.useRef(null);
+  // const user_rank = React.useRef(null);
+  const user_rank_CB = useCallback((el) => {
+    console.log("==================================================");
+    console.log("엘리먼트는?!");
+    console.log("==================================================");
+    console.log(el);
+    console.log("==================================================");
+    window.scrollTo({
+      top: el.offsetTop - 68,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   const ranking = _ranking.sort((a, b) => {
     return b.score - a.score;
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     // 주소에서 파라미터로 받아온 quiz 문서 이름이 저장된 quiz module의 docRef를 getRankFB에 매개변수로 넘겨줌
+    console.log("useEffect");
+
     dispatch(getRankFB(docRef));
-    // console.log("docRef: " + JSON.stringify(docRef));
-    if (!user_rank.current) {
-      return;
-    } else {
-      console.log("==================================================");
-      console.log("Ranking.js");
-      console.log("==================================================");
-      console.log("user_rank");
-      console.log(user_rank);
-      console.log("==================================================");
-      window.scrollTo({
-        top: user_rank.current.offsetTop - 68,
-        left: 0,
-        behavior: "smooth",
-      });
-    }
+
+    // if (!user_rank.current) {
+    //   console.log("if !user_rank.current");
+    //   return;
+    // } else {
+    //   console.log("else !user_rank.current");
+    //   window.scrollTo({
+    //     top: user_rank.current.offsetTop - 68,
+    //     left: 0,
+    //     behavior: "smooth",
+    //   });
+    // }
+
+    // setTimeout(() => {
+    // if (!user_rank.current) {
+    //   return;
+    // } else {
+    //   window.scrollTo({
+    //     top: user_rank.current.offsetTop - 68,
+    //     left: 0,
+    //     behavior: "smooth",
+    //   });
+    //   // console.log("==================================================");
+    //   // console.log("Ranking.js");
+    //   // console.log("==================================================");
+    //   // console.log("user_rank");
+    //   // console.log(user_rank);
+    //   // console.log("==================================================");
+    // }
+    // }, 250);
   }, []);
 
   if (!is_loaded) {
+    console.log("if !is_loaded");
     return (
-      <ImgContainer>
-        <Img src={img} />
-      </ImgContainer>
+      console.log("if !is_loaded_return"),
+      (
+        <ImgContainer>
+          <Img src={img} />
+        </ImgContainer>
+      )
     );
   }
 
   return (
-    <RankContainer>
-      <Topbar>
-        <p>
-          <span>{ranking.length}명</span>의 사람들 중 당신은?
-        </p>
-      </Topbar>
+    console.log("ranking.map_if r.current_return"),
+    (
+      <RankContainer>
+        <Topbar>
+          <p>
+            <span>{ranking.length}명</span>의 사람들 중 당신은?
+          </p>
+        </Topbar>
 
-      <RankWrap>
-        {/* {console.log("ranking(Ranking.js):" + JSON.stringify(ranking))}
+        <RankWrap>
+          {/* {console.log("ranking(Ranking.js):" + JSON.stringify(ranking))}
         {console.log("_ranking(Ranking.js):" + JSON.stringify(_ranking))} */}
-        {/* 위 콘솔이 2번 찍히는데 1번째는 current:true가 추가되지 않은 객체 배열, */}
-        {/* 2번째는 current:true가 message, name 등의 정보와 함께 통째로 추가된 객체 배열 */}
-        {ranking.map((r, idx) => {
-          if (r.current) {
+          {/* 위 콘솔이 2번 찍히는데 1번째는 current:true가 추가되지 않은 객체 배열, */}
+          {/* 2번째는 current:true가 message, name 등의 정보와 함께 통째로 추가된 객체 배열 */}
+          {ranking.map((r, idx) => {
+            if (r.current) {
+              return forwardRef(() => {
+                <RankItem key={idx} highlight={true} ref={user_rank_CB}>
+                  <RankNum>{idx + 1}등</RankNum>
+                  <RankUser>
+                    <p>
+                      <b>{r.name}</b>님: {r.score}점
+                    </p>
+                    <p>{r.message}</p>
+                  </RankUser>
+                </RankItem>;
+              });
+            }
             return (
-              <RankItem key={idx} highlight={true} ref={user_rank}>
-                <RankNum>{idx + 1}등</RankNum>
-                <RankUser>
-                  <p>
-                    <b>{r.name}</b>님: {r.score}점
-                  </p>
-                  <p>{r.message}</p>
-                </RankUser>
-              </RankItem>
+              () => {
+                console.log("ranking.map_return");
+              },
+              (
+                <RankItem key={idx}>
+                  <RankNum>{idx + 1}등</RankNum>
+                  <RankUser>
+                    <p>
+                      <b>{r.name}</b>님: {r.score}점
+                    </p>
+                    <p>{r.message}</p>
+                  </RankUser>
+                </RankItem>
+              )
             );
-          }
-          return (
-            <RankItem key={idx}>
-              <RankNum>{idx + 1}등</RankNum>
-              <RankUser>
-                <p>
-                  <b>{r.name}</b>님: {r.score}점
-                </p>
-                <p>{r.message}</p>
-              </RankUser>
-            </RankItem>
-          );
-        })}
-      </RankWrap>
+          })}
+        </RankWrap>
 
-      <Button
-        onClick={() => {
-          dispatch(resetAnswer());
-          window.location.href = `/start/${docRef}`;
-        }}
-      >
-        다시 하기
-      </Button>
-    </RankContainer>
+        <Button
+          onClick={() => {
+            dispatch(resetAnswer());
+            window.location.href = `/start/${docRef}`;
+          }}
+        >
+          다시 하기
+        </Button>
+      </RankContainer>
+    )
   );
 };
 
@@ -109,9 +149,11 @@ const Topbar = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
-  min-height: 50px;
+  min-height: 45px;
   border-bottom: 1px solid #ddd;
   background-color: #fff;
+  margin-top: 20px;
+
   & > p {
     text-align: center;
   }

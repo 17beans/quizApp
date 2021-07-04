@@ -29,7 +29,7 @@ const ProgressBar = styled.div`
   margin-left: 3%;
   border-radius: 10px;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 18px;
 `;
 
 const HighLight = styled.div`

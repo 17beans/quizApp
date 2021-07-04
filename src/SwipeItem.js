@@ -25,7 +25,7 @@ const SwipeItem = ({ onSwipe }) => {
       };
 
       swipe_div.current.className = target_classname;
-      console.log("Touch Reset! \n className: " + swipe_div.current.className);
+      // console.log("Touch Reset! \n className: " + swipe_div.current.className);
     };
 
     const touchStart = (e) => {

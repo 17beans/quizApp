@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { /*useEffect, */ useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import img from "./scc_img01.png";
@@ -21,9 +21,9 @@ const Message = (props) => {
   // 점수 계산하기
   let score = (correct.length / answers.length) * 100;
 
-  useEffect(() => {
-    console.log("docRef(Message.js): " + JSON.stringify(docRef));
-  }, []);
+  // useEffect(() => {
+  //   console.log("docRef(Message.js): " + JSON.stringify(docRef));
+  // }, []);
 
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
   return (
