@@ -13,11 +13,6 @@ const Ranking = (props) => {
 
   // const user_rank = React.useRef(null);
   const user_rank_CB = useCallback((el) => {
-    console.log("==================================================");
-    console.log("엘리먼트는?!");
-    console.log("==================================================");
-    console.log(el);
-    console.log("==================================================");
     window.scrollTo({
       top: el.offsetTop - 68,
       left: 0,
@@ -30,112 +25,70 @@ const Ranking = (props) => {
   });
 
   useEffect(() => {
-    // 주소에서 파라미터로 받아온 quiz 문서 이름이 저장된 quiz module의 docRef를 getRankFB에 매개변수로 넘겨줌
     console.log("useEffect");
 
     dispatch(getRankFB(docRef));
-
-    // if (!user_rank.current) {
-    //   console.log("if !user_rank.current");
-    //   return;
-    // } else {
-    //   console.log("else !user_rank.current");
-    //   window.scrollTo({
-    //     top: user_rank.current.offsetTop - 68,
-    //     left: 0,
-    //     behavior: "smooth",
-    //   });
-    // }
-
-    // setTimeout(() => {
-    // if (!user_rank.current) {
-    //   return;
-    // } else {
-    //   window.scrollTo({
-    //     top: user_rank.current.offsetTop - 68,
-    //     left: 0,
-    //     behavior: "smooth",
-    //   });
-    //   // console.log("==================================================");
-    //   // console.log("Ranking.js");
-    //   // console.log("==================================================");
-    //   // console.log("user_rank");
-    //   // console.log(user_rank);
-    //   // console.log("==================================================");
-    // }
-    // }, 250);
   }, []);
 
   if (!is_loaded) {
     console.log("if !is_loaded");
     return (
-      console.log("if !is_loaded_return"),
-      (
-        <ImgContainer>
-          <Img src={img} />
-        </ImgContainer>
-      )
+      <ImgContainer>
+        <Img src={img} />
+      </ImgContainer>
     );
   }
 
   return (
-    console.log("ranking.map_if r.current_return"),
-    (
-      <RankContainer>
-        <Topbar>
-          <p>
-            <span>{ranking.length}명</span>의 사람들 중 당신은?
-          </p>
-        </Topbar>
+    <RankContainer>
+      <Topbar>
+        <p>
+          <span>{ranking.length}명</span>의 사람들 중 당신은?
+        </p>
+      </Topbar>
 
-        <RankWrap>
-          {/* {console.log("ranking(Ranking.js):" + JSON.stringify(ranking))}
+      <RankWrap>
+        {/* {console.log("ranking(Ranking.js):" + JSON.stringify(ranking))}
         {console.log("_ranking(Ranking.js):" + JSON.stringify(_ranking))} */}
-          {/* 위 콘솔이 2번 찍히는데 1번째는 current:true가 추가되지 않은 객체 배열, */}
-          {/* 2번째는 current:true가 message, name 등의 정보와 함께 통째로 추가된 객체 배열 */}
-          {ranking.map((r, idx) => {
-            if (r.current) {
-              return forwardRef(() => {
-                <RankItem key={idx} highlight={true} ref={user_rank_CB}>
-                  <RankNum>{idx + 1}등</RankNum>
-                  <RankUser>
-                    <p>
-                      <b>{r.name}</b>님: {r.score}점
-                    </p>
-                    <p>{r.message}</p>
-                  </RankUser>
-                </RankItem>;
-              });
-            }
+        {/* 위 콘솔이 2번 찍히는데 1번째는 current:true가 추가되지 않은 객체 배열, */}
+        {/* 2번째는 current:true가 message, name 등의 정보와 함께 통째로 추가된 객체 배열 */}
+        {ranking.map((r, idx) => {
+          if (r.current) {
             return (
-              () => {
-                console.log("ranking.map_return");
-              },
-              (
-                <RankItem key={idx}>
-                  <RankNum>{idx + 1}등</RankNum>
-                  <RankUser>
-                    <p>
-                      <b>{r.name}</b>님: {r.score}점
-                    </p>
-                    <p>{r.message}</p>
-                  </RankUser>
-                </RankItem>
-              )
+              <RankItem key={idx} highlight={true} ref={user_rank_CB}>
+                <RankNum>{idx + 1}등</RankNum>
+                <RankUser>
+                  <p>
+                    <b>{r.name}</b>님: {r.score}점
+                  </p>
+                  <p>{r.message}</p>
+                </RankUser>
+              </RankItem>
             );
-          })}
-        </RankWrap>
+          }
+          return (
+            <RankItem key={idx}>
+              <RankNum>{idx + 1}등</RankNum>
+              <RankUser>
+                <p>
+                  <b>{r.name}</b>님: {r.score}점
+                </p>
+                <p>{r.message}</p>
+              </RankUser>
+            </RankItem>
+          );
+        })}
+      </RankWrap>
 
-        <Button
-          onClick={() => {
-            dispatch(resetAnswer());
-            window.location.href = `/start/${docRef}`;
-          }}
-        >
-          다시 하기
-        </Button>
-      </RankContainer>
-    )
+      <Button
+        onClick={() => {
+          dispatch(resetAnswer());
+          window.location.href = `/start/${docRef}`;
+        }}
+      >
+        다시 하기
+      </Button>
+    </RankContainer>
   );
 };
 

@@ -27,6 +27,7 @@ const initialState = {
   // },
   ranking: [],
   is_loaded: false,
+  docRef: "ChX2oNagAEWxeWGjKkQ0",
 };
 
 // Action Creators
