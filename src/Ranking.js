@@ -105,10 +105,14 @@ const Topbar = styled.div`
   min-height: 45px;
   border-bottom: 1px solid #ddd;
   background-color: #fff;
-  margin-top: 20px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* margin-top: 20px; */
 
   & > p {
     text-align: center;
+    margin-top: 2vh;
   }
 
   & > p > span {
@@ -124,6 +128,7 @@ const RankWrap = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 58px;
+  background-color: #333;
 `;
 
 const RankItem = styled.div`
