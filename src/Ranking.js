@@ -80,14 +80,16 @@ const Ranking = (props) => {
         })}
       </RankWrap>
 
-      <Button
-        onClick={() => {
-          dispatch(resetAnswer());
-          window.location.href = `/start/${docRef}`;
-        }}
-      >
-        다시 하기
-      </Button>
+      <BtnContainer>
+        <Button
+          onClick={() => {
+            dispatch(resetAnswer());
+            window.location.href = `/start/${docRef}`;
+          }}
+        >
+          다시 하기
+        </Button>
+      </BtnContainer>
     </RankContainer>
   );
 };
@@ -128,7 +130,6 @@ const RankWrap = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 58px;
-  background-color: #333;
 `;
 
 const RankItem = styled.div`
@@ -159,6 +160,15 @@ const RankUser = styled.div`
     }
     margin: 0px 0px 8px 0px;
   }
+`;
+
+const BtnContainer = styled.div`
+  background-color: #fff;
+  width: 100vw;
+  height: 12.5vh;
+  position: fixed;
+  bottom: 0vh;
+  left: 0;
 `;
 
 const Button = styled.button`
