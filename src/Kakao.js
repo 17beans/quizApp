@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Kakao extends Component {
   componentDidMount() {
-    window.Kakao.init("40119826bf14cad9393d9a049ce7f876");
+    // window.Kakao.init("9619962b15a84167783315a66d0e50e3");
 
     window.Kakao.Link.createDefaultButton({
       container: "#kakao-link-btn",

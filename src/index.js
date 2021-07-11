@@ -9,7 +9,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
 import store, { history } from "./redux/configStore";
 
-window.Kakao.init("9619962b15a84167783315a66d0e50e3");
+// window.Kakao.init("9619962b15a84167783315a66d0e50e3");
 
 ReactDOM.render(
   <Provider store={store}>
