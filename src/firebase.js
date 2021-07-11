@@ -2,13 +2,13 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCA7tbEighyB6Kv7JosEhS3B7h62pus_QI",
-  authDomain: "friend-test-5476f.firebaseapp.com",
-  projectId: "friend-test-5476f",
-  storageBucket: "friend-test-5476f.appspot.com",
-  messagingSenderId: "35308591932",
-  appId: "1:35308591932:web:04da8f9eb37702753b1c39",
-  measurementId: "G-D083L33TJC",
+  apiKey: "AIzaSyCr1qlENMErTiN07ewj0dNHMHrHTMShQEU",
+  authDomain: "rumyfriend-c2f37.firebaseapp.com",
+  projectId: "rumyfriend-c2f37",
+  storageBucket: "rumyfriend-c2f37.appspot.com",
+  messagingSenderId: "528103748454",
+  appId: "1:528103748454:web:245670cb3515d4791acea7",
+  measurementId: "G-20RTYC3805",
 };
 
 // firebaseConfig 정보로 firebase 시작

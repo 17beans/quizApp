@@ -1,4 +1,5 @@
 import { firestore } from "../../firebase";
+import { push } from "connected-react-router";
 
 const quiz_db = firestore.collection("quiz");
 
@@ -95,6 +96,8 @@ export const addQuizListFB = (name, quizList) => {
       // console.log("docId: " + docRef.id);
       // let url = "http://localhost:3000/" + docRef.id;
       // console.log("url: " + url);
+
+      dispatch(push("/share"));
     });
   };
 };

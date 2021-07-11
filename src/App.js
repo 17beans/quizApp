@@ -11,6 +11,7 @@ import { withRouter } from "react-router";
 import NotFound from "./NotFound";
 import { connect } from "react-redux";
 import Create from "./Create";
+import Name from "./Name";
 import Share from "./Share";
 
 const mapStateToProps = (state) => {
@@ -54,6 +55,7 @@ class App extends React.Component {
         <Switch>
           {/* <Route path="/" exact component={Create} /> */}
           <Route path="/create" component={Create} />
+          <Route path="/name" component={Name} />
           <Route path="/share" component={Share} />
           <Route path="/start/:doc" exact component={Start} />
           <Route path="/quiz" component={Quiz} />

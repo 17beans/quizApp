@@ -49,7 +49,7 @@ const Create = (props) => {
 
   const Next = () => {
     // console.log(JSON.stringify(quiz));
-    props.history.push("/share");
+    props.history.push("/name");
   };
 
   const IsNoQuiz = () => {
@@ -100,15 +100,6 @@ const Create = (props) => {
 
   return (
     <Container>
-      {/* auto full width responsive ads */}
-      <AdSense.Google
-        // client="ca-pub-3250959123650295"
-        client="pub-3250959123650295"
-        slot="1705627389"
-        style={{ display: "block" /*, height: "60px"*/ }}
-        format="auto"
-        responsive="true"
-      />
       <Title>퀴즈 만들기</Title>
       <QuizBox>
         {/* {JSON.stringify(quiz)} */}
@@ -148,6 +139,15 @@ const Create = (props) => {
         </InputGroup.Append>
       </InputGroup>
       <BtnNext onClick={Next}>다음</BtnNext>
+
+      {/* auto full width responsive ads */}
+      <AdSense.Google
+        client="ca-pub-3250959123650295"
+        slot="5455702891"
+        style={{ display: "block", height: "55px" }}
+        format="auto"
+        responsive="true"
+      />
     </Container>
   );
 };
