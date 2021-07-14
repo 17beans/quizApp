@@ -18,115 +18,50 @@ import KakoStory from "./share_KakaoStory.png";
 const Share = (props) => {
   const docRef = useSelector((state) => state.quiz.docRef);
   const url = "https://rumyfriend-c2f37.web.app/start/" + docRef;
-  // const url = "http://localhost:3000/start/" + docRef;
 
-  // const onClickKakao = () => {
-  //   console.log("==================================================");
-  //   console.log("onClickKakao");
-  //   console.log("==================================================");
+  const onClickKakao = () => {
+    console.log("==================================================");
+    console.log("onClickKakao");
+    console.log("==================================================");
 
-  //   window.Kakao.Link.sendDefault({
-  //     objectType: "feed",
-  //     content: {
-  //       title: "나에 대한 당신의 우정 점수는?",
-  //       description: "#케익 #딸기 #삼평동 #카페 #분위기 #소개팅",
-  //       imageUrl:
-  //         "http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
-  //       link: {
-  //         mobileWebUrl: "http://localhost:3000/start/" + docRef,
-  //         webUrl: "http://localhost:3000/start/" + docRef,
-  //       },
-  //     },
-  //     social: {
-  //       likeCount: 1621,
-  //       sharedCount: 2129,
-  //       viewCount: 4187,
-  //     },
-  //     buttons: [
-  //       {
-  //         title: "웹으로 보기",
-  //         link: {
-  //           mobileWebUrl: "http://localhost:3000/start/" + docRef,
-  //           webUrl: "http://localhost:3000/start/" + docRef,
-  //         },
-  //       },
-  //       {
-  //         title: "앱으로 보기",
-  //         link: {
-  //           mobileWebUrl: "http://localhost:3000/start/" + docRef,
-  //           webUrl: "http://localhost:3000/start/" + docRef,
-  //         },
-  //       },
-  //     ],
-  //   });
+    window.Kakao.init("9619962b15a84167783315a66d0e50e3");
 
-  //   window.open("https://sharer.kakao.com/talk/friends/picker/link");
-
-  //   // window.Kakao.Link.sendDefault({
-  //   //   objectType: "feed", // 메시지 형식 : 피드 타입
-  //   //   content: {
-  //   //     title: "나에 대한 당신의 우정 점수는?",
-  //   //     description: "",
-  //   //     imageUrl: "", // 메인으로 보여질 이미지 주소
-  //   //     link: {
-  //   //       mobileWebUrl: "https://rumyfriend.web.app/start/" + docRef,
-  //   //     },
-  //   //   },
-  //   //   social: {
-  //   //     likeCount: 1621,
-  //   //     // commentCount: 0,
-  //   //     sharedCount: 2129,
-  //   //     viewCount: 4187,
-  //   //     // subscriberCount: 0,
-  //   //   },
-  //   //   buttons: [
-  //   //     {
-  //   //       title: "문제 풀러 가기", // 버튼 이름
-  //   //       link: {
-  //   //         mobileWebUrl: "https://rumyfriend.web.app/start/" + docRef,
-  //   //       },
-  //   //     },
-  //   //   ],
-  //   // });
-  // };
-
-  // useEffect(() => {
-  //   // window.Kakao.init("9619962b15a84167783315a66d0e50e3");
-
-  //   window.Kakao.Link.createDefaultButton({
-  //     container: "#kakao-link-btn",
-  //     objectType: "feed",
-  //     content: {
-  //       title: "나에 대한 당신의 우정 점수는?",
-  //       description: "",
-  //       imageUrl:
-  //         "http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
-  //       link: {
-  //         mobileWebUrl: "https://rumyfriend.web.app/start/" + docRef,
-  //         webUrl: "https://rumyfriend.web.app/start/" + docRef,
-  //       },
-  //     },
-  //     // social: {
-  //     //   likeCount: 286,
-  //     //   commentCount: 45,
-  //     //   sharedCount: 845,
-  //     // },
-  //     buttons: [
-  //       {
-  //         title: "웹으로 보기",
-  //         link: {
-  //           mobileWebUrl: "https://rumyfriend.web.app/start/" + docRef,
-  //         },
-  //       },
-  //       {
-  //         title: "앱으로 보기",
-  //         link: {
-  //           mobileWebUrl: "https://rumyfriend.web.app/start/" + docRef,
-  //         },
-  //       },
-  //     ],
-  //   });
-  // }, []);
+    window.Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "나에 대한 당신의 우정 점수는?",
+        description: `친구가 우정 테스트를 만들었어요!
+        친구에 대한 당신의 우정 점수와 랭킹을 확인해 보세요!`,
+        imageUrl: "https://pixabay.com/ko/photos/남자-친구-야외-활동-1081843",
+        // imageUrl: "https://pixabay.com/ko/photos/여자-최고의-친구-관계-1733991",
+        link: {
+          mobileWebUrl: url,
+          webUrl: url,
+        },
+      },
+      social: {
+        likeCount: 1621,
+        sharedCount: 2129,
+        viewCount: 4187,
+      },
+      buttons: [
+        {
+          title: "문제 풀러 가기",
+          link: {
+            mobileWebUrl: url,
+            webUrl: url,
+          },
+        },
+        {
+          title: "나도 문제 만들기",
+          link: {
+            mobileWebUrl: "https://rumyfriend-c2f37.web.app/create",
+            webUrl: "https://rumyfriend-c2f37.web.app/create",
+          },
+        },
+      ],
+    });
+  };
 
   return (
     <div
@@ -187,9 +122,25 @@ const Share = (props) => {
           </button>
         </CopyToClipboard>
         <div style={{ marginTop: "20px", display: "flex" }}>
-          <KakaoShareButton url={url}>
-            {/* <KakaoIcon /> */}
+          <p>
+            <b>Message</b>
+          </p>
+        </div>
 
+        <div style={{ marginTop: "-10px", display: "flex" }}>
+          <a id="kakao-link-btn" onClick={onClickKakao}>
+            <KakaoIcon />
+          </a>
+        </div>
+
+        <div style={{ marginTop: "20px", display: "flex" }}>
+          <p>
+            <b>SNS Feed</b>
+          </p>
+        </div>
+
+        <div style={{ marginTop: "-10px", display: "flex" }}>
+          <KakaoShareButton url={url}>
             <img
               src={KakoStory}
               style={{
