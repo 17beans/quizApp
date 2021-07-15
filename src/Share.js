@@ -32,8 +32,9 @@ const Share = (props) => {
         title: "나에 대한 당신의 우정 점수는?",
         description: `친구가 우정 테스트를 만들었어요!
         친구에 대한 당신의 우정 점수와 랭킹을 확인해 보세요!`,
-        imageUrl: "https://pixabay.com/ko/photos/남자-친구-야외-활동-1081843",
-        // imageUrl: "https://pixabay.com/ko/photos/여자-최고의-친구-관계-1733991",
+        imageUrl:
+          "https://cdn.pixabay.com/photo/2015/12/08/00/34/men-1081843_960_720.jpg",
+        // imageUrl: "https://cdn.pixabay.com/photo/2016/10/12/10/12/women-1733991_960_720.jpg",
         link: {
           mobileWebUrl: url,
           webUrl: url,

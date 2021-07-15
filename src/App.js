@@ -53,7 +53,7 @@ class App extends React.Component {
         {/* <Score /> */}
 
         <Switch>
-          {/* <Route path="/" exact component={Create} /> */}
+          <Route path="/" exact component={Create} />
           <Route path="/create" component={Create} />
           <Route path="/name" component={Name} />
           <Route path="/share" component={Share} />

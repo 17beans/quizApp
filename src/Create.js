@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { addQuiz, deleteQuiz } from "./redux/modules/quiz";
@@ -37,6 +37,7 @@ const Create = (props) => {
     } else {
       dispatch(addQuiz(input_text.current.value, radioValue));
       input_text.current.value = "";
+      input_text.current.focus();
     }
   };
 
@@ -98,6 +99,10 @@ const Create = (props) => {
     );
   };
 
+  useEffect(() => {
+    // input_text.current.focus();
+  }, []);
+
   return (
     <Container>
       <Title>퀴즈 만들기</Title>
@@ -105,8 +110,8 @@ const Create = (props) => {
         {/* {JSON.stringify(quiz)} */}
         {/* {!quiz.length > 0 ? <IsNoQuiz /> : <IsQuiz />} */}
         {quiz === "" ? <IsNoQuiz /> : <IsQuiz />}
-        text
-        {console.log("quiz: " + JSON.stringify(quiz))}
+        {/* text */}
+        {/* {console.log("quiz: " + JSON.stringify(quiz))} */}
       </QuizBox>
       {/* <InputBox> */}
       {/* <InputQuiz

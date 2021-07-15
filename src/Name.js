@@ -5,10 +5,16 @@ import { addQuizListFB } from "./redux/modules/quiz";
 
 const Name = (props) => {
   const dispatch = useDispatch();
-  const input_text = useRef();
+  const input_text = useRef(null);
   const quizList = useSelector((state) => state.quiz.quiz);
   // const name = useSelector((state) => state.quiz.name);
   // 컬러셋 참고: https://www.shutterstock.com/ko/blog/pastel-color-palettes-rococo-trend/
+
+  const enterKey = (e) => {
+    if (e.key === "Enter") {
+      shareQuiz();
+    }
+  };
 
   const shareQuiz = async () => {
     // await dispatch(addUserName(input_text.current.value));
@@ -17,8 +23,14 @@ const Name = (props) => {
     } else {
       let name = input_text.current.value;
       await dispatch(addQuizListFB(name, quizList));
+      input_text.current.removeEventListener("keyup", enterKey);
     }
   };
+
+  useEffect(() => {
+    input_text.current.focus();
+    input_text.current.addEventListener("keyup", enterKey);
+  }, []);
 
   return (
     <div
