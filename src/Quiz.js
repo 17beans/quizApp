@@ -54,6 +54,8 @@ const Quiz = (props) => {
         }
       })}
 
+      {"캐릭터를 드래그 해주세요!"}
+
       <AnswerZone>
         <Answer>O</Answer>
         <Answer>X</Answer>
