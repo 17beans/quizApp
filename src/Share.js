@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import img from "./scc_img01.png";
+import img from "./imgs/women.jpg";
 import { useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Kakao from "./Kakao";

@@ -1,7 +1,7 @@
 import React, { /*useEffect, */ useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import img from "./scc_img01.png";
+import img from "./imgs/men.jpg";
 import { addRankFB } from "./redux/modules/rank";
 
 const Message = (props) => {

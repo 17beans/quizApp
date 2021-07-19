@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import img from "./scc_img01.png";
+// import img from "./scc_img01.png";
 
 const SwipeItem = ({ onSwipe }) => {
   const swipe_div = React.useRef();
@@ -113,9 +113,7 @@ const SwipeItem = ({ onSwipe }) => {
 
   return (
     <DragItem ref={swipe_div}>
-      <div>
-        <img src={img}></img>
-      </div>
+      <div>{/* <img src={img}></img> */}</div>
     </DragItem>
   );
 };
@@ -138,6 +136,8 @@ const DragItem = styled.div`
   // &와 바로 뒤 태그 사이에서 >는 생략 가능하며 &도 생략 가능 합니다!
   & > div {
     background-color: #ffd6aa;
+    width: 150px;
+    height: 150px;
     border-radius: 75px;
   }
   // & img와 & div > img는 같지 않지만! 적용이 잘 됩니다!

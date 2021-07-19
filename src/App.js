@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import Create from "./Create";
 import Name from "./Name";
 import Share from "./Share";
+import StartCreate from "./StartCreate";
 
 const mapStateToProps = (state) => {
   return { ...state };
@@ -53,7 +54,7 @@ class App extends React.Component {
         {/* <Score /> */}
 
         <Switch>
-          <Route path="/" exact component={Create} />
+          <Route path="/" exact component={StartCreate} />
           <Route path="/create" component={Create} />
           <Route path="/name" component={Name} />
           <Route path="/share" component={Share} />

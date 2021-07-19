@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import img from "./scc_img01.png";
+import img from "./imgs/women.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import { /*addDocRef,*/ loadQuizFB /*, setQuiz*/ } from "./redux/modules/quiz";
 import { addUserName } from "./redux/modules/rank";
